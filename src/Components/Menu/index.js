@@ -1,5 +1,6 @@
 import React, { Component } from "react"
-import { Menu, Container } from "semantic-ui-react"
+import { Menu } from "semantic-ui-react"
+import { Link } from "react-router-dom"
 
 export default class MenuBar extends Component {
   state = {}
@@ -10,34 +11,49 @@ export default class MenuBar extends Component {
     const { activeItem } = this.state
 
     return (
-      <Container>
-        <Menu widths='eight'>
-          <Menu.Item name='Home' active={activeItem === "Home"} onClick={this.handleItemClick}>
-            Home
-          </Menu.Item>
-          <Menu.Item
-            name='Boookmark'
-            active={activeItem === "Boookmark"}
-            onClick={this.handleItemClick}
-          >
-            Boookmark
-          </Menu.Item>
-          <Menu.Item
-            name='Practice'
-            active={activeItem === "Practice"}
-            onClick={this.handleItemClick}
-          >
-            Practice
-          </Menu.Item>
-          <Menu.Item
-            name='Profile'
-            active={activeItem === "Profile"}
-            onClick={this.handleItemClick}
-          >
-            Profile
-          </Menu.Item>
-        </Menu>
-      </Container>
+      <Menu widths='eight' style={menuStyle}>
+        <Menu.Item
+          name='Home'
+          as={Link}
+          to='/'
+          active={activeItem === "Home"}
+          onClick={this.handleItemClick}
+        >
+          Home
+        </Menu.Item>
+        <Menu.Item
+          name='login'
+          as={Link}
+          to='/login'
+          active={activeItem === "login"}
+          onClick={this.handleItemClick}
+        >
+          Login
+        </Menu.Item>
+        <Menu.Item
+          name='profile'
+          as={Link}
+          to='/profile'
+          active={activeItem === "profile"}
+          onClick={this.handleItemClick}
+        >
+          Profile
+        </Menu.Item>
+        <Menu.Item
+          name='signup'
+          as={Link}
+          to='/signup'
+          active={activeItem === "signup"}
+          onClick={this.handleItemClick}
+        >
+          Sign up
+        </Menu.Item>
+      </Menu>
     )
   }
+}
+
+const menuStyle = {
+  border: "0px",
+  boxShadow: "none"
 }
