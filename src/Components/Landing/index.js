@@ -1,11 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
 
 export default class Index extends Component {
-  render() {
-    return (
-      <div>
-        Hello Skooldio!
-      </div>
-    )
+  render () {
+    return <div>Hello Skooldio!</div>
   }
 }
