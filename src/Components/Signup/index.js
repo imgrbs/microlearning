@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import _ from "lodash"
 import { Button, Form, Container, Header } from "semantic-ui-react"
 import firebase from "../../Tools/firebase"
 
@@ -20,7 +21,7 @@ class SignUpForm extends Component {
       await firebase
         .database()
         .ref("users/" + user.uid)
-        .set(this.state)
+        .set(_.omit(this.state, ["password"]))
       // create success
     } catch (e) {
       console.error(e)
