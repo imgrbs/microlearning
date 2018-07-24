@@ -3,6 +3,7 @@ import React, { Component } from "react"
 import ReactDOM from "react-dom"
 import { BrowserRouter as Router, Route } from "react-router-dom"
 
+import AppProvider from "./Context/AppProvider"
 import Landing from "./Components/Landing"
 import Login from "./Components/Login"
 import Profile from "./Components/Profile"
@@ -12,16 +13,18 @@ import Logo from "./Components/Logo"
 class App extends Component {
   render () {
     return (
-      <Router>
-        <div>
-          <Logo />
-          <Menu />
-          <Route exact path='/' component={Landing} />
-          <Route path='/login' component={Login} />
-          <Route path='/profile' component={Profile} />
-          <Route path='/signup' component={Signup} />
-        </div>
-      </Router>
+      <AppProvider>
+        <Router>
+          <div>
+            <Logo />
+            <Menu />
+            <Route exact path='/' component={Landing} />
+            <Route path='/login' component={Login} />
+            <Route path='/profile' component={Profile} />
+            <Route path='/signup' component={Signup} />
+          </div>
+        </Router>
+      </AppProvider>
     )
   }
 }
