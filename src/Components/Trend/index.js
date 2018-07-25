@@ -1,8 +1,15 @@
 import React, { Component } from "react"
-import { Header, Grid } from "semantic-ui-react"
+import styled from "styled-components"
+import { Header, Grid, Dimmer as DefaultDimmer, Loader } from "semantic-ui-react"
 import firebase from "../../Tools/firebase"
 
 import Feed from "../Feed"
+
+const Dimmer = styled(DefaultDimmer)`
+  min-height: 100px;
+  margin-top: 100px;
+`
+
 class Trend extends Component {
   state = {
     news: []
@@ -29,12 +36,19 @@ class Trend extends Component {
   }
 
   render () {
+    const { news } = this.state
     return (
       <Grid>
         <Grid.Row>
           <Grid.Column>
             <Header as='h1'>{this.props.title}</Header>
-            {this.state.news.map(news => <Feed {...news} />)}
+            { news && !(news.length > 0)
+              ? (
+                <Dimmer inverted active>
+                  <Loader>Loading</Loader>
+                </Dimmer>
+              ) : news.map(news => <Feed {...news} />)
+            }
           </Grid.Column>
         </Grid.Row>
       </Grid>
