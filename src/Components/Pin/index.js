@@ -18,32 +18,34 @@ class Pin extends Component {
   }
 
   joinClass = async () => {
-    const classesRef = firebase.database().ref("classes")
-    const foundClass = await classesRef
-      .orderByChild("pin")
-      .equalTo(this.state.pin)
-      .once("value")
-    const joiningClass = foundClass.val()
-    if (joiningClass) {
-      const joiningClassKey = Object.keys(joiningClass)[0]
-      const joinedClassRef = firebase
-        .database()
-        .ref("users/" + this.props.user.uid + "/joinedClass")
-      const alreadyJoined = await joinedClassRef
-        .orderByValue()
-        .equalTo(joiningClassKey)
+    try {
+      const classesRef = firebase.database().ref("classes")
+      const foundClass = await classesRef
+        .orderByChild("pin")
+        .equalTo(this.state.pin)
         .once("value")
-      if (!alreadyJoined.val()) {
-        joinedClassRef.push().set(joiningClassKey)
-        // add success
+      const joiningClass = foundClass.val()
+      if (joiningClass) {
+        const joiningClassKey = Object.keys(joiningClass)[0]
+        const joinedClassRef = firebase
+          .database()
+          .ref("users/" + this.props.user.uid + "/joinedClass")
+        const alreadyJoined = await joinedClassRef
+          .orderByValue()
+          .equalTo(joiningClassKey)
+          .once("value")
+        if (!alreadyJoined.val()) {
+          joinedClassRef.push().set(joiningClassKey)
+          // add success
+        } else {
+          // already joined
+          console.log("joined")
+        }
       } else {
-        // already joined
-        console.log("joined")
+        // no class has that pin
+        console.log("no class")
       }
-    } else {
-      // no class has that pin
-      console.log("no class")
-    }
+    } catch (e) {}
   }
 
   render () {
