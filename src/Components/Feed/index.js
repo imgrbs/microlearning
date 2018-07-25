@@ -1,88 +1,40 @@
 import React from "react"
-import { Feed, Icon, Grid } from "semantic-ui-react"
+import { Segment, Header, Grid, Container } from "semantic-ui-react"
 
-const NewFeed = () => (
-  <Grid centered>
-    <Feed size='small'>
-      <Feed.Event>
-        <Feed.Label>
-          <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-        </Feed.Label>
-        <Feed.Content>
-          <Feed.Summary>
-            <Feed.User>Elliot Fu</Feed.User> added you as a friend
-            <Feed.Date>1 Hour Ago</Feed.Date>
-          </Feed.Summary>
-          <Feed.Meta>
-            <Feed.Like>
-              <Icon name='like' />
-              4 Likes
-            </Feed.Like>
-          </Feed.Meta>
-        </Feed.Content>
-      </Feed.Event>
-
-      <Feed.Event>
-        <Feed.Label image='https://react.semantic-ui.com/images/avatar/small/helen.jpg' />
-        <Feed.Content>
-          <Feed.Summary>
-            <a>Helen Troy</a> added <a>2 new illustrations</a>
-            <Feed.Date>4 days ago</Feed.Date>
-          </Feed.Summary>
-          <Feed.Extra images>
-            <a>
-              <img src='https://react.semantic-ui.com/images/wireframe/image.png' />
-            </a>
-            <a>
-              <img src='https://react.semantic-ui.com/images/wireframe/image.png' />
-            </a>
-          </Feed.Extra>
-          <Feed.Meta>
-            <Feed.Like>
-              <Icon name='like' />
-              1 Like
-            </Feed.Like>
-          </Feed.Meta>
-        </Feed.Content>
-      </Feed.Event>
-
-      <Feed.Event>
-        <Feed.Label>
-          <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-        </Feed.Label>
-        <Feed.Content>
-          <Feed.Summary>
-            <Feed.User>Elliot Fu</Feed.User> added you as a friend
-            <Feed.Date>1 Hour Ago</Feed.Date>
-          </Feed.Summary>
-          <Feed.Meta>
-            <Feed.Like>
-              <Icon name='like' />
-              4 Likes
-            </Feed.Like>
-          </Feed.Meta>
-        </Feed.Content>
-      </Feed.Event>
-
-      <Feed.Event>
-        <Feed.Label>
-          <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-        </Feed.Label>
-        <Feed.Content>
-          <Feed.Summary>
-            <Feed.User>Elliot Fu</Feed.User> added you as a friend
-            <Feed.Date>1 Hour Ago</Feed.Date>
-          </Feed.Summary>
-          <Feed.Meta>
-            <Feed.Like>
-              <Icon name='like' />
-              4 Likes
-            </Feed.Like>
-          </Feed.Meta>
-        </Feed.Content>
-      </Feed.Event>
-    </Feed>
-  </Grid>
+const NewsFeed = () => (
+  <Container>
+    <Grid>
+      <a href=''>
+        <Segment size='large' vertical>
+          <div style={divStyle} />
+          <div style={contentStyle}>
+            <Header as='h2' style={{ marginBottom: "2px" }}>
+              Data for Social Good
+            </Header>
+            <div>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+              has been the industry's standard dummy
+            </div>
+          </div>
+        </Segment>
+      </a>
+    </Grid>
+  </Container>
 )
 
-export default NewFeed
+const divStyle = {
+  height: "200px",
+  width: "100%",
+  backgroundImage: "url(\"https://cdn-images-1.medium.com/max/800/0*osCrEA2Kx91dzZlm\")",
+  backgroundPosition: "69% 50%",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  marginBottom: "10px"
+}
+
+const contentStyle = {
+  padding: "8px",
+  color: "#756060"
+}
+
+export default NewsFeed

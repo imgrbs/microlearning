@@ -1,7 +1,14 @@
 import React, { Component } from "react"
+import { Container } from "semantic-ui-react"
 
-export default class Index extends Component {
+import Trend from "../Trend"
+export default class Landing extends Component {
   render () {
-    return <div>Hello Skooldio!</div>
+    return (
+      <Container>
+        <Trend title='Trend' />
+        <Trend title='News' />
+      </Container>
+    )
   }
 }
