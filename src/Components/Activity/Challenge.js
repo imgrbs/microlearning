@@ -37,7 +37,10 @@ export default WithUserConsumer(
     state = {
       activity: {},
       userActivity: null,
-      timeLeft: null
+      timeLeft: null,
+      interval: null,
+      answer: "",
+      isEnd: false
     }
 
     componentDidMount () {
@@ -65,6 +68,25 @@ export default WithUserConsumer(
       this.setState({ activity, userActivity })
     }
 
+    handleSubmitAnswer = async () => {
+      const activityId = this.props.match.params.id
+      await firebase
+        .database()
+        .ref("users/" + this.props.user.uid + "/completedActivity/")
+        .push()
+        .set({
+          activityId,
+          start: this.state.userActivity.start,
+          end: moment().format(),
+          answer: this.state.answer
+        })
+      await firebase
+        .database()
+        .ref("users/" + this.props.user.uid + "/activeActivity/" + activityId)
+        .remove()
+      this.setState({ isEnd: true })
+    }
+
     handleStart = async () => {
       const activityId = this.props.match.params.id
       try {
@@ -78,7 +100,6 @@ export default WithUserConsumer(
           .ref("users/" + this.props.user.uid + "/activeActivity/" + activityId)
           .set(userActivity)
         this.addInterval(userActivity.end)
-        
         this.setState({ userActivity })
       } catch (e) {
         console.error(e)
@@ -98,12 +119,19 @@ export default WithUserConsumer(
       this.setState({ interval, timeLeft })
     }
 
+    handleAnswerText = e => {
+      this.setState({ answer: e.target.value })
+    }
+
     getTimeLeft = () => {
       const { timeLeft } = this.state
       return `${timeLeft.hours()}:${timeLeft.minutes()}:${timeLeft.seconds()}`
     }
 
     render () {
+      const isStart = !this.state.userActivity
+      const { isEnd } = this.state
+      const isAnswering = !isStart && !isEnd
       return (
         <Container>
           <Header as='h1'>{this.state.activity.title}</Header>
@@ -111,17 +139,30 @@ export default WithUserConsumer(
             <Message.Header>Level: {this.state.activity.level}</Message.Header>
             <p>{this.state.activity.content}</p>
           </Message>
-          {!this.state.userActivity ? (
+          {isStart && (
             <Button secondary onClick={this.handleStart}>
               Start Activity
             </Button>
-          ) : (
+          )}
+          {isAnswering && (
             <Fragment>
               <Message info>
                 <Message.Header>Timer: {this.getTimeLeft()} left.</Message.Header>
               </Message>
-              <TextArea placeholder='Answer Here...' />
-              <Button primary>Submit Answer</Button>
+              <TextArea
+                placeholder='Answer Here...'
+                onChange={this.handleAnswerText}
+                value={this.state.answer}
+              />
+              <Button primary onClick={this.handleSubmitAnswer}>
+                Submit Answer
+              </Button>
+            </Fragment>
+          )}
+          {isEnd && (
+            <Fragment>
+              Solution
+              <TextArea value={this.state.activity.answer} />
             </Fragment>
           )}
         </Container>
