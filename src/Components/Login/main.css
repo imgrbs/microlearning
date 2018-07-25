@@ -1,0 +1,14 @@
+.ui.button,
+.ui.button:focus {
+   background-color: #f1ad46;
+   color: white;
+}
+
+.ui.button:hover {
+   background-color: #ce9033;
+   color: white;
+}
+
+.ui.button:active {
+   transform: scale(0.95,0.95)
+}

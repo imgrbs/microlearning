@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { Button, Form, Container } from "semantic-ui-react"
 import firebase from "../../Tools/firebase"
 import { WithUserConsumer } from "../../Context/UserContext"
-
+import "./main.css"
 class LoginForm extends Component {
   state = {
     email: "",
@@ -11,9 +11,7 @@ class LoginForm extends Component {
 
   login = async () => {
     try {
-      await firebase
-        .auth()
-        .signInWithEmailAndPassword(this.state.email, this.state.password)
+      await firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
       // login success
     } catch (e) {
       console.error(e)

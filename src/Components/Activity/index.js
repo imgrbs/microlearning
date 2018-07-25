@@ -1,20 +1,18 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { Container, Header, List } from "semantic-ui-react"
+import { Container, Header, List, Segment } from "semantic-ui-react"
 
-const ListGenerater = ({list}) => (
+const ListGenerater = ({ list }) => (
   <List divided relaxed>
-    {
-      list.map(({icon, header, description}) => (
-        <List.Item>
-          <List.Icon name={icon} size='large' verticalAlign='middle' />
-          <List.Content>
-            <List.Header as='a'>{header}</List.Header>
-            <List.Description as='a'>{description}</List.Description>
-          </List.Content>
-        </List.Item>
-      ))
-    }
+    {list.map(({ icon, header, description }) => (
+      <List.Item>
+        <List.Icon name={icon} size='large' verticalAlign='middle' />
+        <List.Content>
+          <List.Header as='a'>{header}</List.Header>
+          <List.Description as='a'>{description}</List.Description>
+        </List.Content>
+      </List.Item>
+    ))}
   </List>
 )
 
@@ -36,12 +34,18 @@ export default class Activity extends Component {
   render () {
     return (
       <Container>
-        <Header as='h1'>New</Header>
-        <ListGenerater />
-        <Header as='h1'>Level 1 : Beginner</Header>
-        <ListGenerater />
-        <Header as='h1'>Level 2 : Intermediate</Header>
-        <ListGenerater />
+        <Segment>
+          <Header as='h1'>New</Header>
+          <ListGenerater />
+        </Segment>
+        <Segment>
+          <Header as='h1'>Level 1 : Beginner</Header>
+          <ListGenerater />
+        </Segment>
+        <Segment>
+          <Header as='h1'>Level 2 : Intermediate</Header>
+          <ListGenerater />
+        </Segment>
       </Container>
     )
   }
