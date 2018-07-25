@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Button, Form, Container } from "semantic-ui-react"
 import firebase from "../../Tools/firebase"
-import UserContext from "../../Context/UserContext"
+import { WithUserConsumer } from "../../Context/UserContext"
 
 class LoginForm extends Component {
   state = {
@@ -11,11 +11,10 @@ class LoginForm extends Component {
 
   login = async () => {
     try {
-      const users = await firebase
+      await firebase
         .auth()
         .signInWithEmailAndPassword(this.state.email, this.state.password)
       // login success
-      this.props.setUser(users)
     } catch (e) {
       console.error(e)
       // login fail
@@ -53,6 +52,4 @@ class LoginForm extends Component {
   }
 }
 
-export default () => (
-  <UserContext.Consumer>{({ setUser }) => <LoginForm setUser={setUser} />}</UserContext.Consumer>
-)
+export default WithUserConsumer(LoginForm)

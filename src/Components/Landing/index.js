@@ -6,7 +6,6 @@ export default class Landing extends Component {
   render () {
     return (
       <Container>
-        <Trend title='Trend' />
         <Trend title='News' />
       </Container>
     )

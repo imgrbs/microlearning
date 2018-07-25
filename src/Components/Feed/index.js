@@ -1,27 +1,27 @@
-import React from "react"
+import React, { Component } from "react"
 import { Segment, Header, Grid, Container } from "semantic-ui-react"
 
-const NewsFeed = () => (
-  <Container>
-    <Grid>
-      <a href=''>
-        <Segment size='large' vertical>
-          <div style={divStyle} />
-          <div style={contentStyle}>
-            <Header as='h2' style={{ marginBottom: "2px" }}>
-              Data for Social Good
-            </Header>
-            <div>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-              has been the industry's standard dummy
-            </div>
-          </div>
-        </Segment>
-      </a>
-    </Grid>
-  </Container>
-)
-
+class NewsFeed extends Component {
+  render () {
+    return (
+      <Container>
+        <Grid>
+          <a href=''>
+            <Segment size='large' vertical>
+              <div style={divStyle} />
+              <div style={contentStyle}>
+                <Header as='h2' style={{ marginBottom: "2px" }}>
+                  {this.props.title}
+                </Header>
+                <div>{this.props.content}</div>
+              </div>
+            </Segment>
+          </a>
+        </Grid>
+      </Container>
+    )
+  }
+}
 const divStyle = {
   height: "200px",
   width: "100%",

@@ -1,8 +1,22 @@
-import React from "react"
+import React, { Component } from "react"
 
 export const users = {
   user: {},
-  setUser: (user) => {}
+  setUser: user => {}
 }
 
-export default React.createContext(users)
+const UserContext = React.createContext(users)
+
+export const UserConsumer = UserContext.Consumer
+export const WithUserConsumer = WrappedComponent =>
+  class extends Component {
+    render () {
+      return (
+        <UserContext.Consumer>
+          {value => <WrappedComponent {...value} {...this.props} />}
+        </UserContext.Consumer>
+      )
+    }
+  }
+
+export const UserProvider = UserContext.Provider
