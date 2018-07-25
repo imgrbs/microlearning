@@ -1,24 +1,22 @@
-import React, { Component } from "react"
-import { Segment, Header, Grid, Container } from "semantic-ui-react"
+import React, { Component, Fragment } from "react"
+import { Segment, Header } from "semantic-ui-react"
 
 class NewsFeed extends Component {
   render () {
     return (
-      <Container>
-        <Grid>
-          <a href=''>
-            <Segment size='large' vertical>
-              <div style={divStyle} />
-              <div style={contentStyle}>
-                <Header as='h2' style={{ marginBottom: "2px" }}>
-                  {this.props.title}
-                </Header>
-                <div>{this.props.content}</div>
-              </div>
-            </Segment>
-          </a>
-        </Grid>
-      </Container>
+      <Fragment>
+        <a href=''>
+          <Segment size='large' vertical>
+            <div style={divStyle} />
+            <div style={contentStyle}>
+              <Header as='h2' style={{ marginBottom: "2px" }}>
+                {this.props.title}
+              </Header>
+              <div>{this.props.content}</div>
+            </div>
+          </Segment>
+        </a>
+      </Fragment>
     )
   }
 }

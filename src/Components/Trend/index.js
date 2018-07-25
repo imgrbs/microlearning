@@ -32,7 +32,7 @@ class Trend extends Component {
     return (
       <Grid>
         <Grid.Row>
-          <Grid.Column width={16}>
+          <Grid.Column>
             <Header as='h1'>{this.props.title}</Header>
             {this.state.news.map(news => <Feed {...news} />)}
           </Grid.Column>
