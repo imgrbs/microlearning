@@ -1,30 +1,40 @@
-import React from "react"
+import React, { Component } from "react"
 import { Grid, Image, Header } from "semantic-ui-react"
+import firebase from "../../Tools/firebase"
+import { WithUserConsumer } from "../../Context/UserContext"
 
-const Profile = ({ firstname, lastName }) => (
-  <div>
-    <Grid centered>
-      <Grid.Column width={6}>
-        <Image
-          size='medium'
-          src='https://react.semantic-ui.com/images/avatar/large/matthew.png'
-          circular='true'
-        />
-      </Grid.Column>
-      <Grid.Column width={5}>
-        <Header as='h1'>`Lorem` Loream</Header>
-      </Grid.Column>
-    </Grid>
-    <Grid centered>
-      <Grid.Column width={12}>
-        <Header>Level 1: Beginner</Header>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-          been the industry's standard dummy
-        </p>
-      </Grid.Column>
-    </Grid>
-  </div>
-)
+class Profile extends Component {
 
-export default Profile
+  render () {
+    return (
+      <div>
+        <Grid centered>
+          <Grid.Column width={6}>
+            <Image
+              size='medium'
+              src={
+                this.props.user.photoURL ||
+                "https://react.semantic-ui.com/images/avatar/large/matthew.png"
+              }
+              circular='true'
+            />
+          </Grid.Column>
+          <Grid.Column width={5}>
+            <Header as='h1'>{this.props.user.displayName}</Header>
+          </Grid.Column>
+        </Grid>
+        <Grid centered>
+          <Grid.Column width={12}>
+            <Header>Level 1: Beginner</Header>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+              has been the industry's standard dummy
+            </p>
+          </Grid.Column>
+        </Grid>
+      </div>
+    )
+  }
+}
+
+export default WithUserConsumer(Profile)
