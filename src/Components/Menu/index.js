@@ -68,13 +68,13 @@ export default class MenuBar extends Component {
             Home
           </Menu.Item>
           <Menu.Item
-            name='profile'
+            name='activity'
             as={Link}
-            to='/profile'
-            active={activeItem === "profile"}
+            to='/activity'
+            active={activeItem === "activity"}
             onClick={this.handleItemClick}
           >
-            Profile
+            Activity
           </Menu.Item>
           <Menu.Item
             name='pin'
@@ -84,6 +84,15 @@ export default class MenuBar extends Component {
             onClick={this.handleItemClick}
           >
             Pin
+          </Menu.Item>
+          <Menu.Item
+            name='profile'
+            as={Link}
+            to='/profile'
+            active={activeItem === "profile"}
+            onClick={this.handleItemClick}
+          >
+            Profile
           </Menu.Item>
           <Menu.Item onClick={this.handleModal}>
             <div className='signBtn'>Get start</div>
