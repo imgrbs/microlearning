@@ -1,63 +1,88 @@
 import React, { Component } from "react"
-import { Menu } from "semantic-ui-react"
+import { Menu, Modal } from "semantic-ui-react"
 import { Link } from "react-router-dom"
-
+import SignUp from "../Signup"
+import Login from "../Login"
 export default class MenuBar extends Component {
-  state = {}
+  state = {
+    open: false,
+    content: false
+  }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-
+  handleModal = () => {
+    this.setState((prevState, props) => ({
+      open: !prevState.open
+    }))
+  }
+  handleEach = () => {
+    this.setState((prevState, props) => ({
+      content: !prevState.content
+    }))
+  }
   render () {
-    const { activeItem } = this.state
-
+    const { activeItem, open, content } = this.state
+    let modelContent
+    if (content) {
+      modelContent = (
+        <Modal.Content>
+          <Modal.Description>
+            <p>
+              Already have an account? <b onClick={this.handleEach}>Sign in</b>
+            </p>
+            <SignUp />
+          </Modal.Description>
+        </Modal.Content>
+      )
+    } else {
+      modelContent = (
+        <Modal.Content>
+          <Modal.Description>
+            <p>
+              No account? <b onClick={this.handleEach}>Create one</b>
+            </p>
+            <Login />
+          </Modal.Description>
+        </Modal.Content>
+      )
+    }
     return (
-      <Menu widths='eight' style={menuStyle}>
-        <Menu.Item
-          name='Home'
-          as={Link}
-          to='/'
-          active={activeItem === "Home"}
-          onClick={this.handleItemClick}
-        >
-          Home
-        </Menu.Item>
-        <Menu.Item
-          name='login'
-          as={Link}
-          to='/login'
-          active={activeItem === "login"}
-          onClick={this.handleItemClick}
-        >
-          Login
-        </Menu.Item>
-        <Menu.Item
-          name='profile'
-          as={Link}
-          to='/profile'
-          active={activeItem === "profile"}
-          onClick={this.handleItemClick}
-        >
-          Profile
-        </Menu.Item>
-        <Menu.Item
-          name='pin'
-          as={Link}
-          to='/pin'
-          active={activeItem === "pin"}
-          onClick={this.handleItemClick}
-        >
-          Pin
-        </Menu.Item>
-        <Menu.Item
-          name='signup'
-          as={Link}
-          to='/signup'
-          active={activeItem === "signup"}
-          onClick={this.handleItemClick}
-        >
-          Sign up
-        </Menu.Item>
-      </Menu>
+      <div>
+        <Menu widths='eight' style={menuStyle}>
+          <Menu.Item
+            name='Home'
+            as={Link}
+            to='/'
+            active={activeItem === "Home"}
+            onClick={this.handleItemClick}
+          >
+            Home
+          </Menu.Item>
+          <Menu.Item
+            name='profile'
+            as={Link}
+            to='/profile'
+            active={activeItem === "profile"}
+            onClick={this.handleItemClick}
+          >
+            Profile
+          </Menu.Item>
+          <Menu.Item
+            name='pin'
+            as={Link}
+            to='/pin'
+            active={activeItem === "pin"}
+            onClick={this.handleItemClick}
+          >
+            Pin
+          </Menu.Item>
+          <Menu.Item onClick={this.handleModal}>Get started</Menu.Item>
+        </Menu>
+
+        <Modal open={open} onClose={this.handleModal} closeIcon>
+          {modelContent}
+        </Modal>
+      </div>
     )
   }
 }

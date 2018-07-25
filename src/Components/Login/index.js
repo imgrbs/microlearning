@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Button, Form, Container, Header } from "semantic-ui-react"
+import { Button, Form, Container } from "semantic-ui-react"
 import firebase from "../../Tools/firebase"
 import UserContext from "../../Context/UserContext"
 
@@ -11,7 +11,9 @@ class LoginForm extends Component {
 
   login = async () => {
     try {
-      const users = await firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+      const users = await firebase
+        .auth()
+        .signInWithEmailAndPassword(this.state.email, this.state.password)
       // login success
       this.props.setUser(users)
     } catch (e) {
@@ -27,15 +29,22 @@ class LoginForm extends Component {
   render () {
     return (
       <Container>
-        <Header as='h2'>Login</Header>
         <Form>
           <Form.Field>
             <label>Email</label>
-            <input placeholder='Email' type='email' onChange={e => this.handleInputChange(e, "email")} />
+            <input
+              placeholder='Email'
+              type='email'
+              onChange={e => this.handleInputChange(e, "email")}
+            />
           </Form.Field>
           <Form.Field>
             <label>Password</label>
-            <input placeholder='Password' type='password' onChange={e => this.handleInputChange(e, "password")} />
+            <input
+              placeholder='Password'
+              type='password'
+              onChange={e => this.handleInputChange(e, "password")}
+            />
           </Form.Field>
           <Button onClick={this.login}>Login</Button>
         </Form>
@@ -45,11 +54,5 @@ class LoginForm extends Component {
 }
 
 export default () => (
-  <UserContext.Consumer>
-    {
-      (({ setUser }) => (
-        <LoginForm setUser={setUser} />
-      ))
-    }
-  </UserContext.Consumer>
+  <UserContext.Consumer>{({ setUser }) => <LoginForm setUser={setUser} />}</UserContext.Consumer>
 )

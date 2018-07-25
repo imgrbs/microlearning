@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import _ from "lodash"
-import { Button, Form, Container, Header } from "semantic-ui-react"
+import { Button, Form, Container } from "semantic-ui-react"
 import firebase from "../../Tools/firebase"
 
 class SignUpForm extends Component {
@@ -37,7 +37,6 @@ class SignUpForm extends Component {
     return (
       <div>
         <Container>
-          <Header as='h2'>SignUp</Header>
           <Form>
             <Form.Field>
               <label>Username</label>
