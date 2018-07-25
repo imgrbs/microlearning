@@ -1,0 +1,37 @@
+.ui.menu .item:before,
+.ui.menu.eight.item .item:hover {
+   background: white;
+   font-weight: bold;
+}
+
+.ui.menu .active.item {
+   background: white;
+   font-weight: bold;
+}
+
+.ui.menu.eight.item .item {
+   width: 17%;
+}
+
+.link {
+   cursor: pointer;
+   font-weight: bold;
+   color: #f1ad46;
+}
+.link:hover {
+  font-weight: bold;
+  color: #ce9033;
+}
+
+.signBtn {
+   color: #f1ad46;
+   border: 2px solid #f1ad46;
+   padding: 10px 25px 10px 25px;
+   border-radius: 3em;
+   transition: 0.25s;
+}
+
+.signBtn:hover {
+   color: white;
+   background: #f1ad46;
+}

@@ -11,7 +11,7 @@ const Logo = () => (
 
 const logoStyle = {
   marginTop: "20px",
-  marginBottom: "10px"
+  marginBottom: "15px"
 }
 
 const imgStyle = {

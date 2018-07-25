@@ -1,8 +1,9 @@
 import React, { Component } from "react"
-import { Menu, Modal } from "semantic-ui-react"
+import { Menu, Modal, Header } from "semantic-ui-react"
 import { Link } from "react-router-dom"
 import SignUp from "../Signup"
 import Login from "../Login"
+import "./menu.css"
 export default class MenuBar extends Component {
   state = {
     open: false,
@@ -27,8 +28,12 @@ export default class MenuBar extends Component {
       modelContent = (
         <Modal.Content>
           <Modal.Description>
+            <Header as='h1'> Join us</Header>
             <p>
-              Already have an account? <b onClick={this.handleEach}>Sign in</b>
+              Already have an account?{" "}
+              <span className='link' onClick={this.handleEach}>
+                Sign in
+              </span>
             </p>
             <SignUp />
           </Modal.Description>
@@ -38,8 +43,12 @@ export default class MenuBar extends Component {
       modelContent = (
         <Modal.Content>
           <Modal.Description>
+            <Header as='h1'> Welcome back</Header>
             <p>
-              No account? <b onClick={this.handleEach}>Create one</b>
+              No account?{" "}
+              <span className='link' onClick={this.handleEach}>
+                Create one
+              </span>
             </p>
             <Login />
           </Modal.Description>
@@ -76,7 +85,9 @@ export default class MenuBar extends Component {
           >
             Pin
           </Menu.Item>
-          <Menu.Item onClick={this.handleModal}>Get started</Menu.Item>
+          <Menu.Item onClick={this.handleModal}>
+            <div className='signBtn'>Get start</div>
+          </Menu.Item>
         </Menu>
 
         <Modal open={open} onClose={this.handleModal} closeIcon>
