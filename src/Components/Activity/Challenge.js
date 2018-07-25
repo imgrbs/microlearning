@@ -1,7 +1,10 @@
 import React, { Component, Fragment } from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
+import moment from "moment"
 import { Container, Header, Message, Button, TextArea as DefaultTextArea } from "semantic-ui-react"
+import firebase from "../../Tools/firebase"
+import { WithUserConsumer } from "../../Context/UserContext"
 
 const TextArea = styled(DefaultTextArea)`
   min-height: 300px;
@@ -9,65 +12,120 @@ const TextArea = styled(DefaultTextArea)`
   margin: 0;
 
   -webkit-appearance: none;
-  tap-highlight-color: rgba(255,255,255,0);
-  padding: .78571429em 1em;
+  tap-highlight-color: rgba(255, 255, 255, 0);
+  padding: 0.78571429em 1em;
   background: #fff;
-  border: 1px solid rgba(34,36,38,.15);
+  border: 1px solid rgba(34, 36, 38, 0.15);
   outline: 0;
-  color: rgba(0,0,0,.87);
-  border-radius: .28571429rem;
+  color: rgba(0, 0, 0, 0.87);
+  border-radius: 0.28571429rem;
   -webkit-box-shadow: 0 0 0 0 transparent inset;
   box-shadow: 0 0 0 0 transparent inset;
-  -webkit-transition: color .1s ease,border-color .1s ease;
-  transition: color .1s ease,border-color .1s ease;
+  -webkit-transition: color 0.1s ease, border-color 0.1s ease;
+  transition: color 0.1s ease, border-color 0.1s ease;
   font-size: 1em;
   line-height: 1.2857;
   resize: vertical;
 `
 
-export default class Challenge extends Component {
-  static propTypes = {
-    prop: PropTypes
-  }
+export default WithUserConsumer(
+  class extends Component {
+    static propTypes = {
+      prop: PropTypes
+    }
 
-  state = {
-    isStart: false
-  }
+    state = {
+      activity: {},
+      userActivity: null,
+      timeLeft: null
+    }
 
-  handleStart = () => {
-    this.setState({ isStart: true })
-  }
+    componentDidMount () {
+      this.loadActivity()
+    }
 
-  render () {
-    const { isStart } = this.state
-    return (
-      <Container>
-        <Header as='h1'>Level 1 : Beginner</Header>
-        <Message>
-          <Message.Header>
-            Question
-          </Message.Header>
-          <p>
-            Freemium direct mailing stealth. Venture partnership handshake partner network channels. Beta ownership freemium funding hypotheses partnership vesting period android release. Investor responsive web design graphical user interface stealth paradigm shift crowdsource freemium product management entrepreneur agile development. Alpha series A financing business model canvas android niche market focus social proof accelerator. Prototype handshake gen-z user experience twitter seed money buyer. Crowdsource social proof marketing hypotheses. Backing gen-z venture sales network effects ramen pitch. Responsive web design ecosystem graphical user interface ownership startup influencer metrics investor angel investor creative focus research & development alpha MVP. First mover advantage interaction design deployment advisor user experience.
-          </p>
-        </Message>
-        {
-          !isStart
-            ? <Button secondary onClick={this.handleStart}>Start Activity</Button>
-            : (
-              <Fragment>
-                <Message info>
-                  <Message.Header>
-                    Timer: 7 days left.
-                  </Message.Header>
-                </Message>
-                <TextArea placeholder='Answer Here...' />
-                <Button primary>Submit Answer</Button>
-              </Fragment>
-            )
+    async loadActivity () {
+      const activityId = this.props.match.params.id
+      const rawActivity = await firebase
+        .database()
+        .ref("activities/" + activityId)
+        .once("value")
+      const activity = rawActivity.val() || {}
+
+      const rawUserActivity = await firebase
+        .database()
+        .ref("users/" + this.props.user.uid + "/activeActivity/" + activityId)
+        .once("value")
+      const userActivity = rawUserActivity.val()
+
+      if (userActivity) {
+        this.addInterval(userActivity.end)
+      }
+
+      this.setState({ activity, userActivity })
+    }
+
+    handleStart = async () => {
+      const activityId = this.props.match.params.id
+      try {
+        const startTime = moment()
+        const userActivity = {
+          start: startTime.format(),
+          end: startTime.add(moment.duration(this.state.activity.duration)).format()
         }
+        await firebase
+          .database()
+          .ref("users/" + this.props.user.uid + "/activeActivity/" + activityId)
+          .set(userActivity)
+        this.addInterval(userActivity.end)
+        
+        this.setState({ userActivity })
+      } catch (e) {
+        console.error(e)
+      }
+    }
 
-      </Container>
-    )
+    addInterval = endTime => {
+      const timeLeft = moment.duration(moment(endTime).diff(moment()))
+      const interval = setInterval(() => {
+        const timeLeft = this.state.timeLeft.subtract(1, "seconds")
+        if (timeLeft.asSeconds() >= 0) {
+          this.setState({ timeLeft })
+        } else {
+          this.state.interval.clear()
+        }
+      }, 1000)
+      this.setState({ interval, timeLeft })
+    }
+
+    getTimeLeft = () => {
+      const { timeLeft } = this.state
+      return `${timeLeft.hours()}:${timeLeft.minutes()}:${timeLeft.seconds()}`
+    }
+
+    render () {
+      return (
+        <Container>
+          <Header as='h1'>{this.state.activity.title}</Header>
+          <Message>
+            <Message.Header>Level: {this.state.activity.level}</Message.Header>
+            <p>{this.state.activity.content}</p>
+          </Message>
+          {!this.state.userActivity ? (
+            <Button secondary onClick={this.handleStart}>
+              Start Activity
+            </Button>
+          ) : (
+            <Fragment>
+              <Message info>
+                <Message.Header>Timer: {this.getTimeLeft()} left.</Message.Header>
+              </Message>
+              <TextArea placeholder='Answer Here...' />
+              <Button primary>Submit Answer</Button>
+            </Fragment>
+          )}
+        </Container>
+      )
+    }
   }
-}
+)

@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { Grid, Image, Header } from "semantic-ui-react"
-import firebase from "../../Tools/firebase"
 import { WithUserConsumer } from "../../Context/UserContext"
 
 class Profile extends Component {
