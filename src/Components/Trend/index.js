@@ -4,6 +4,7 @@ import { Header, Grid, Dimmer as DefaultDimmer, Loader } from "semantic-ui-react
 import firebase from "../../Tools/firebase"
 
 import Feed from "../Feed"
+import "./main.css"
 
 const Dimmer = styled(DefaultDimmer)`
   min-height: 100px;
@@ -42,13 +43,14 @@ class Trend extends Component {
         <Grid.Row>
           <Grid.Column>
             <Header as='h1'>{this.props.title}</Header>
-            { news && !(news.length > 0)
-              ? (
-                <Dimmer inverted active>
-                  <Loader>Loading</Loader>
-                </Dimmer>
-              ) : news.map(news => <Feed {...news} />)
-            }
+            <hr />
+            {news && !(news.length > 0) ? (
+              <Dimmer inverted active>
+                <Loader>Loading</Loader>
+              </Dimmer>
+            ) : (
+              news.map(news => <Feed {...news} />)
+            )}
           </Grid.Column>
         </Grid.Row>
       </Grid>

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react"
-import { Segment, Header } from "semantic-ui-react"
+import { Segment, Header, Image } from "semantic-ui-react"
 
 class NewsFeed extends Component {
   render () {
@@ -7,7 +7,7 @@ class NewsFeed extends Component {
       <Fragment>
         <a href=''>
           <Segment size='large' vertical>
-            <div style={divStyle} />
+            <Image src={this.props.img} fluid />
             <div style={contentStyle}>
               <Header as='h2' style={{ marginBottom: "2px" }}>
                 {this.props.title}
@@ -19,15 +19,6 @@ class NewsFeed extends Component {
       </Fragment>
     )
   }
-}
-const divStyle = {
-  height: "200px",
-  width: "100%",
-  backgroundImage: "url(\"https://cdn-images-1.medium.com/max/800/0*osCrEA2Kx91dzZlm\")",
-  backgroundPosition: "69% 50%",
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
-  marginBottom: "10px"
 }
 
 const contentStyle = {
