@@ -1,38 +1,76 @@
-import React, { Component } from "react"
-import { Grid, Image, Header } from "semantic-ui-react"
+import React, { Component, Fragment } from "react"
+import { Container, Grid, Image, Header, Card } from "semantic-ui-react"
 import firebase from "../../Tools/firebase"
 import { WithUserConsumer } from "../../Context/UserContext"
 
-class Profile extends Component {
+const Activity = ({ activities }) => (
+  <Fragment>
+    {
+      activities.map(({ header, description }) => (
+        <Card fluid>
+          <Card.Content>
+            <Header>{header}</Header>
+            <p>{ description} </p>
+          </Card.Content>
+        </Card>
+      ))
+    }
+  </Fragment>
+)
 
+Activity.defaultProps = {
+  activities: [
+    {
+      header: "Level 1: Beginner",
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy"
+    },
+    {
+      header: "Level 1: Beginner",
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy"
+    },
+    {
+      header: "Level 1: Beginner",
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy"
+    },
+    {
+      header: "Level 1: Beginner",
+      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy"
+    },
+  ]
+}
+
+class Profile extends Component {
   render () {
     return (
-      <div>
-        <Grid centered>
-          <Grid.Column width={6}>
-            <Image
-              size='medium'
-              src={
-                this.props.user.photoURL ||
+      <Fragment>
+        <Container>
+          <Grid>
+            <Grid.Column width={6}>
+              <Card>
+                <Image
+                  size='medium'
+                  src={
+                    this.props.user.photoURL ||
                 "https://react.semantic-ui.com/images/avatar/large/matthew.png"
-              }
-              circular='true'
-            />
-          </Grid.Column>
-          <Grid.Column width={5}>
-            <Header as='h1'>{this.props.user.displayName}</Header>
-          </Grid.Column>
-        </Grid>
-        <Grid centered>
-          <Grid.Column width={12}>
-            <Header>Level 1: Beginner</Header>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-              has been the industry's standard dummy
-            </p>
-          </Grid.Column>
-        </Grid>
-      </div>
+                  }
+                  circular='true'
+                />
+                <Card.Content>
+                  <Card.Header textAlign='center'>
+                    {this.props.user.displayName || "Guest"}
+                  </Card.Header>
+                </Card.Content>
+              </Card>
+            </Grid.Column>
+            <Grid.Column width={10}>
+              <Header>Active Activity</Header>
+              <Activity />
+              <Header>Completed Activity</Header>
+              <Activity />
+            </Grid.Column>
+          </Grid>
+        </Container>
+      </Fragment>
     )
   }
 }
