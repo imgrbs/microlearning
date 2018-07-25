@@ -17,11 +17,13 @@ class SignUpForm extends Component {
       const user = await firebase
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      await user.updateProfile({ displayName: this.state.username })
+      const photoURL = `https://api.adorable.io/avatars/200/${this.state.username}.png`
+      await user.updateProfile({ displayName: this.state.username, photoURL })
       await firebase
         .database()
         .ref("users/" + user.uid)
-        .set(_.omit(this.state, ["password"]))
+        .set({ ..._.omit(this.state, ["password"], photoURL) })
+      await user.signOut()
       // create success
     } catch (e) {
       console.error(e)
