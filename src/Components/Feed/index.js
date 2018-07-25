@@ -3,18 +3,19 @@ import { Segment, Header, Image } from "semantic-ui-react"
 
 class NewsFeed extends Component {
   render () {
-    const { img, title, content } = this.prop
+    const { img, title, content } = this.props
     return (
       <Fragment>
         <a href=''>
           <Segment size='large' vertical>
             <div
               style={{
-                height: "200px",
+                height: "250px",
                 width: "100%",
-                backgroundImage: `'url(${img})'`,
+                backgroundImage: `url(${img})`,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
+                backgroundPosition: "69% 50%",
                 marginBottom: "10px"
               }}
               fluid
