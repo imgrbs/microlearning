@@ -31,6 +31,15 @@ export default class MenuBar extends Component {
           Login
         </Menu.Item>
         <Menu.Item
+          name='activity'
+          as={Link}
+          to='/activity'
+          active={activeItem === "activity"}
+          onClick={this.handleItemClick}
+        >
+          Activity
+        </Menu.Item>
+        <Menu.Item
           name='profile'
           as={Link}
           to='/profile'
