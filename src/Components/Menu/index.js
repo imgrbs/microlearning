@@ -18,6 +18,7 @@ export default WithUserConsumer(
 
     signOut () {
       firebase.auth().signOut()
+      this.props.history.push("/")
     }
 
     handleModal = () => {

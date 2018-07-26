@@ -6,14 +6,13 @@ import { WithUserConsumer } from "../../Context/UserContext"
 import firebase from "../../Tools/firebase"
 
 const ClassSengment = styled(Segment)`
-  transition: .3s;
+  transition: 0.3s;
   &:hover {
     transform: scale(1.05);
   }
 `
 
 const ClassItem = ({ title, description }) => (
-
   <ClassSengment>
     <List divided relaxed>
       <List.Item>
@@ -26,11 +25,9 @@ const ClassItem = ({ title, description }) => (
 
 const ClassList = ({ classList }) => (
   <Fragment>
-    {
-      classList.map(({title, description}) => (
-        <ClassItem key={`${title}${description}`} title={title} description={description} />
-      ))
-    }
+    {classList.map(({ classId, title, description }) => (
+      <ClassItem key={classId} title={title} description={description} />
+    ))}
   </Fragment>
 )
 
@@ -42,6 +39,20 @@ class Pin extends Component {
   state = {
     pin: "",
     classList: []
+  }
+
+  constructor (props) {
+    super(props)
+    firebase
+      .database()
+      .ref("users/" + props.user.uid + "/joinedClass")
+      .on("value", data => {
+        const rawClassList = data.val()
+        if (rawClassList) {
+          const classList = Object.values(rawClassList)
+          this.setState({ classList })
+        }
+      })
   }
 
   handleInputPinChange = e => {
@@ -58,15 +69,13 @@ class Pin extends Component {
       const joiningClass = foundClass.val()
       if (joiningClass) {
         const joiningClassKey = Object.keys(joiningClass)[0]
-        const joinedClassRef = firebase
-          .database()
-          .ref("users/" + this.props.user.uid + "/joinedClass")
-        const alreadyJoined = await joinedClassRef
-          .orderByValue()
-          .equalTo(joiningClassKey)
-          .once("value")
-        if (!alreadyJoined.val()) {
-          joinedClassRef.push().set(joiningClassKey)
+        const alreadyJoined = this.state.classList.find(item => item.classId === joiningClassKey)
+        if (!alreadyJoined) {
+          await firebase
+            .database()
+            .ref("users/" + this.props.user.uid + "/joinedClass")
+            .push()
+            .set({ ...joiningClass[joiningClassKey], classId: joiningClassKey })
           // add success
         } else {
           // already joined
@@ -81,7 +90,7 @@ class Pin extends Component {
     const { classList } = this.state
     return (
       <Container textAlign='center'>
-        <Segment style={{margin: "2em auto", maxWidth: "400px"}} color='yellow'>
+        <Segment style={{ margin: "2em auto", maxWidth: "400px" }} color='yellow'>
           <Header as='h1'>Join Classroom</Header>
           <Form>
             <Form.Field>
@@ -92,14 +101,14 @@ class Pin extends Component {
             </Button>
           </Form>
         </Segment>
-        <Segment style={{minHeight: "70vh", marginBottom: "3em"}} color='yellow'>
+        <Segment style={{ minHeight: "70vh", marginBottom: "3em" }} color='yellow'>
           <Header as='h1'>Your Classroom</Header>
-          <div style={{padding: "1em 7em"}}>
-            {
-              classList.length > 0
-                ? <ClassList classList={classList} />
-                : <Message warning>ไม่มีคลาส</Message>
-            }
+          <div style={{ padding: "1em 7em" }}>
+            {classList.length > 0 ? (
+              <ClassList classList={classList} />
+            ) : (
+              <Message warning>ไม่มีคลาส</Message>
+            )}
           </div>
         </Segment>
       </Container>
