@@ -5,8 +5,8 @@ import { WithUserConsumer } from "../../Context/UserContext"
 
 const Activity = ({ activities }) => (
   <Fragment>
-    {activities.map(({ header, description }) => (
-      <Card fluid>
+    {activities.map(({ activityId, header, description }) => (
+      <Card fluid key={activityId}>
         <Card.Content>
           <Header>{header}</Header>
           <p>{description} </p>
@@ -60,13 +60,17 @@ class Profile extends Component {
     const activeActivity = userData.activeActivity || {}
     const completedActivity = userData.completedActivity || {}
     this.setState({
-      activeActivity: Object.values(activeActivity).map(act => ({
-        header: act.title,
-        description: "level " + act.level
+      activeActivity: Object.entries(activeActivity).map(act => ({
+        ...act[1],
+        activityId: act[0],
+        header: act[1].title,
+        description: "level " + act[1].level
       })),
-      completedActivity: Object.values(completedActivity).map(act => ({
-        header: act.title,
-        description: "level " + act.level
+      completedActivity: Object.entries(completedActivity).map(act => ({
+        ...act[1],
+        activityId: act[0],
+        header: act[1].title,
+        description: "level " + act[1].level
       }))
     })
   }
@@ -84,7 +88,6 @@ class Profile extends Component {
                     this.props.user.photoURL ||
                     "https://react.semantic-ui.com/images/avatar/large/matthew.png"
                   }
-                  circular='true'
                 />
                 <Card.Content>
                   <Card.Header textAlign='center'>

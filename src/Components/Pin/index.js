@@ -1,13 +1,9 @@
 import React, { Component } from "react"
-import PropTypes from "prop-types"
 import { Container, Header, Input, Form, Button } from "semantic-ui-react"
 import { WithUserConsumer } from "../../Context/UserContext"
 import firebase from "../../Tools/firebase"
 
 class Pin extends Component {
-  static propTypes = {
-    prop: PropTypes
-  }
 
   state = {
     pin: ""

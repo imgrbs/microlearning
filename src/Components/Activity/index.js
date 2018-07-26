@@ -1,14 +1,14 @@
 import React, { Component } from "react"
 import _ from "lodash"
 import moment from "moment"
-import PropTypes from "prop-types"
+import { Link } from "react-router-dom"
 import { Container, Header, List, Segment } from "semantic-ui-react"
 import firebase from "../../Tools/firebase"
 
 const ListGenerator = ({ list }) => (
   <List divided relaxed>
-    {list.map(({ icon, header, description }) => (
-      <List.Item>
+    {list.map(({ activityId, icon, header, description }) => (
+      <List.Item key={activityId} as={Link} to={`/activity/${activityId}`}>
         <List.Icon name={icon} size='large' verticalAlign='middle' />
         <List.Content>
           <List.Header as='a'>{header}</List.Header>
@@ -22,6 +22,7 @@ const ListGenerator = ({ list }) => (
 ListGenerator.defaultProps = {
   list: [
     {
+      activityId: 1,
       icon: "github",
       header: "Semantic-Org/Semantic-UI",
       description: "Updated 10 mins ago"
@@ -30,9 +31,6 @@ ListGenerator.defaultProps = {
 }
 
 export default class Activity extends Component {
-  static propTypes = {
-    prop: PropTypes
-  }
   state = {
     newList: [],
     beginnerList: [],
