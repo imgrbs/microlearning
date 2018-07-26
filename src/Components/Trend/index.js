@@ -28,7 +28,10 @@ class Trend extends Component {
         .orderByChild("createdAt")
         .limitToLast(3)
         .once("value")
-      const listNews = Object.values(rawNews.val())
+      const listNews = Object.entries(rawNews.val()).map(entity => ({
+        ...entity[1],
+        newsId: entity[0]
+      }))
       listNews.reverse()
       this.setState({ news: listNews })
     } catch (e) {

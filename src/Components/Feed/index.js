@@ -1,12 +1,13 @@
 import React, { Component, Fragment } from "react"
-import { Segment, Header, Image } from "semantic-ui-react"
+import { Segment, Header } from "semantic-ui-react"
+import { Link } from "react-router-dom"
 
 class NewsFeed extends Component {
   render () {
-    const { img, title, content } = this.props
+    const { img, title, content, newsId } = this.props
     return (
       <Fragment>
-        <a href=''>
+        <Link to={{ pathname: `/feed/${newsId}`, state: this.props }}>
           <Segment size='large' vertical>
             <div
               style={{
@@ -27,7 +28,7 @@ class NewsFeed extends Component {
               <div>{content}</div>
             </div>
           </Segment>
-        </a>
+        </Link>
       </Fragment>
     )
   }
