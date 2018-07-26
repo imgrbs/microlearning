@@ -1,12 +1,47 @@
-import React, { Component } from "react"
-import { Container, Header, Input, Form, Button } from "semantic-ui-react"
+import React, { Component, Fragment } from "react"
+import styled from "styled-components"
+import PropTypes from "prop-types"
+import { Container, List, Header, Input, Form, Button, Segment, Message } from "semantic-ui-react"
 import { WithUserConsumer } from "../../Context/UserContext"
 import firebase from "../../Tools/firebase"
 
-class Pin extends Component {
+const ClassSengment = styled(Segment)`
+  transition: .3s;
+  &:hover {
+    transform: scale(1.05);
+  }
+`
 
+const ClassItem = ({ title, description }) => (
+
+  <ClassSengment>
+    <List divided relaxed>
+      <List.Item>
+        <List.Header textAlign='left'>{title}</List.Header>
+        {description}
+      </List.Item>
+    </List>
+  </ClassSengment>
+)
+
+const ClassList = ({ classList }) => (
+  <Fragment>
+    {
+      classList.map(({title, description}) => (
+        <ClassItem key={`${title}${description}`} title={title} description={description} />
+      ))
+    }
+  </Fragment>
+)
+
+ClassList.propTypes = {
+  classList: PropTypes.array
+}
+
+class Pin extends Component {
   state = {
-    pin: ""
+    pin: "",
+    classList: []
   }
 
   handleInputPinChange = e => {
@@ -43,17 +78,30 @@ class Pin extends Component {
   }
 
   render () {
+    const { classList } = this.state
     return (
       <Container textAlign='center'>
-        <Header as='h1'>Add Classroom</Header>
-        <Form>
-          <Form.Field>
-            <Input placeholder='Pin...' required onChange={this.handleInputPinChange} />
-          </Form.Field>
-          <Button type='submit' primary onClick={this.joinClass}>
-            Join Classroom
-          </Button>
-        </Form>
+        <Segment style={{margin: "2em auto", maxWidth: "400px"}} color='yellow'>
+          <Header as='h1'>Join Classroom</Header>
+          <Form>
+            <Form.Field>
+              <Input placeholder='Enter Pin...' required onChange={this.handleInputPinChange} />
+            </Form.Field>
+            <Button type='submit' color='yellow' onClick={this.joinClass}>
+              Join !
+            </Button>
+          </Form>
+        </Segment>
+        <Segment style={{minHeight: "70vh", marginBottom: "3em"}} color='yellow'>
+          <Header as='h1'>Your Classroom</Header>
+          <div style={{padding: "1em 7em"}}>
+            {
+              classList.length > 0
+                ? <ClassList classList={classList} />
+                : <Message warning>ไม่มีคลาส</Message>
+            }
+          </div>
+        </Segment>
       </Container>
     )
   }

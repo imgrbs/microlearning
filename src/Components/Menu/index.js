@@ -77,13 +77,13 @@ export default class MenuBar extends Component {
             Activity
           </Menu.Item>
           <Menu.Item
-            name='pin'
+            name='classroom'
             as={Link}
-            to='/pin'
-            active={activeItem === "pin"}
+            to='/classroom'
+            active={activeItem === "classroom"}
             onClick={this.handleItemClick}
           >
-            Pin
+            Classroom
           </Menu.Item>
           <Menu.Item
             name='profile'

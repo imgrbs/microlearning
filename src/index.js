@@ -29,7 +29,7 @@ class App extends Component {
             <Route exact path='/activity' component={Activity} />
             <Route path='/activity/:id' component={Challenge} />
             <Route path='/profile' component={Profile} />
-            <Route path='/pin' component={Pin} />
+            <Route path='/classroom' component={Pin} />
             <Route path='/signup' component={Signup} />
             <Footer />
           </div>
