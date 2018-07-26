@@ -65,7 +65,6 @@ export default class Activity extends Component {
       beginnerList: groupActivity.beginner,
       intermediateList: groupActivity.intermediate
     })
-    console.log(activityList, groupActivity)
   }
 
   render () {

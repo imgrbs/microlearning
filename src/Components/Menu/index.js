@@ -35,7 +35,7 @@ export default class MenuBar extends Component {
                 Sign in
               </span>
             </p>
-            <SignUp />
+            <SignUp closeModal={this.handleModal} />
           </Modal.Description>
         </Modal.Content>
       )
@@ -50,7 +50,7 @@ export default class MenuBar extends Component {
                 Create one
               </span>
             </p>
-            <Login />
+            <Login closeModal={this.handleModal} />
           </Modal.Description>
         </Modal.Content>
       )

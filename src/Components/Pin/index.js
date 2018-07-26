@@ -39,11 +39,9 @@ class Pin extends Component {
           // add success
         } else {
           // already joined
-          console.log("joined")
         }
       } else {
         // no class has that pin
-        console.log("no class")
       }
     } catch (e) {}
   }

@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { withRouter } from "react-router"
 import _ from "lodash"
 import { Button, Form, Container } from "semantic-ui-react"
 import firebase from "../../Tools/firebase"
@@ -23,8 +24,11 @@ class SignUpForm extends Component {
         .database()
         .ref("users/" + user.uid)
         .set({ ..._.omit(this.state, ["password"], photoURL) })
-      await user.signOut()
-      // create success
+      if (this.props.closeModal) {
+        this.props.closeModal()
+      } else {
+        this.props.history.push("/")
+      }
     } catch (e) {
       console.error(e)
       // create fail
@@ -88,4 +92,4 @@ class SignUpForm extends Component {
   }
 }
 
-export default SignUpForm
+export default withRouter(SignUpForm)
