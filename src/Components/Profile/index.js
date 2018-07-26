@@ -79,11 +79,11 @@ class Profile extends Component {
     return (
       <Fragment>
         <Container>
-          <Grid>
-            <Grid.Column width={6}>
-              <Card>
+          <Grid centered>
+            <Grid.Column computer={6} mobile={16}>
+              <Card fluid>
                 <Image
-                  size='medium'
+                  size='huge'
                   src={
                     this.props.user.photoURL ||
                     "https://react.semantic-ui.com/images/avatar/large/matthew.png"
@@ -96,12 +96,12 @@ class Profile extends Component {
                 </Card.Content>
               </Card>
             </Grid.Column>
-            <Grid.Column width={10}>
+            <Grid.Column computer={10} mobile={16} textAlign>
               <Header>Active Activity</Header>
               <Activity activities={this.state.activeActivity} />
               <Header>Completed Activity</Header>
               <Activity activities={this.state.completedActivity} />
-            </Grid.Column>
+            </Grid.Column>{" "}
           </Grid>
         </Container>
       </Fragment>
