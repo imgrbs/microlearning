@@ -18,17 +18,21 @@
    font-weight: bold;
    color: #f1ad46;
 }
+
 .link:hover {
-  font-weight: bold;
-  color: #ce9033;
+   font-weight: bold;
+   color: #ce9033;
 }
 
 .signBtn {
    color: #f1ad46;
    border: 2px solid #f1ad46;
-   padding: 10px 25px 10px 25px;
+   padding: 5px;
    border-radius: 3em;
    transition: 0.25s;
+   display: flex;
+   align-content: center;
+   justify-content: center;
 }
 
 .signBtn:hover {

@@ -10,5 +10,12 @@
 }
 
 .ui.button:active {
-   transform: scale(0.95,0.95)
+   transform: scale(0.95, 0.95)
+}
+
+.modalBtn {
+   background-color: #f1ad46;
+   color: white;
+   width: 100px;
+   padding: 10px;
 }
