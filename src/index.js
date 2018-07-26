@@ -14,6 +14,7 @@ import Signup from "./Components/Signup"
 import Menu from "./Components/Menu"
 import Logo from "./Components/Logo"
 import Article from "./Components/Feed/Article"
+import Footer from "./Components/Footer"
 class App extends Component {
   render () {
     return (
@@ -30,6 +31,7 @@ class App extends Component {
             <Route path='/profile' component={Profile} />
             <Route path='/pin' component={Pin} />
             <Route path='/signup' component={Signup} />
+            <Footer />
           </div>
         </Router>
       </AppProvider>
