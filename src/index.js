@@ -13,6 +13,7 @@ import Pin from "./Components/Pin"
 import Signup from "./Components/Signup"
 import Menu from "./Components/Menu"
 import Logo from "./Components/Logo"
+import Article from "./Components/Feed/Article"
 class App extends Component {
   render () {
     return (
@@ -22,6 +23,7 @@ class App extends Component {
             <Logo />
             <Menu />
             <Route exact path='/' component={Landing} />
+            <Route path='/feed/:newsId' component={Article} />
             <Route path='/login' component={Login} />
             <Route exact path='/activity' component={Activity} />
             <Route path='/activity/:id' component={Challenge} />
