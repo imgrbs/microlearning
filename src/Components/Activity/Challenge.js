@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from "react"
 import styled from "styled-components"
+import _ from "lodash"
 import moment from "moment"
 import { Container, Header, Message, Button, TextArea as DefaultTextArea } from "semantic-ui-react"
 import firebase from "../../Tools/firebase"
 import { WithUserConsumer } from "../../Context/UserContext"
+import Notfound from "../PageNotFound"
 
 const TextArea = styled(DefaultTextArea)`
   min-height: 300px;
@@ -35,7 +37,8 @@ export default WithUserConsumer(
       timeLeft: null,
       interval: null,
       answer: "",
-      isEnd: false
+      isEnd: false,
+      isNotfound: false
     }
 
     componentDidMount () {
@@ -57,7 +60,7 @@ export default WithUserConsumer(
         this.addInterval(userActivity.end)
       }
 
-      this.setState({ activity, userActivity })
+      this.setState({ activity, userActivity, isNotfound: _.isEmpty(activity) })
     }
 
     handleSubmitAnswer = async () => {
@@ -124,8 +127,11 @@ export default WithUserConsumer(
 
     render () {
       const isStart = !this.state.userActivity
-      const { isEnd } = this.state
+      const { isEnd, isNotfound } = this.state
       const isAnswering = !isStart && !isEnd
+      if (isNotfound) {
+        return <Notfound />
+      }
       return (
         <Container>
           <Header as='h1'>{this.state.activity.title}</Header>

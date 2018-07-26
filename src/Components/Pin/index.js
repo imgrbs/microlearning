@@ -1,7 +1,17 @@
 import React, { Component, Fragment } from "react"
 import styled from "styled-components"
 import PropTypes from "prop-types"
-import { Container, List, Header, Input, Form, Button, Segment, Message } from "semantic-ui-react"
+import {
+  Container,
+  List,
+  Header,
+  Input,
+  Form,
+  Button,
+  Segment,
+  Message,
+  Card
+} from "semantic-ui-react"
 import { WithUserConsumer } from "../../Context/UserContext"
 import firebase from "../../Tools/firebase"
 
@@ -14,12 +24,8 @@ const ClassSengment = styled(Segment)`
 
 const ClassItem = ({ title, description }) => (
   <ClassSengment>
-    <List divided relaxed>
-      <List.Item>
-        <List.Header textAlign='left'>{title}</List.Header>
-        {description}
-      </List.Item>
-    </List>
+    <Header as='h4'>{title}</Header>
+    <p>{description}</p>
   </ClassSengment>
 )
 
