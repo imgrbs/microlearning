@@ -11,8 +11,8 @@ const ListGenerator = ({ list }) => (
       <List.Item key={activityId} as={Link} to={`/activity/${activityId}`}>
         <List.Icon name={icon} size='large' verticalAlign='middle' />
         <List.Content>
-          <List.Header as='a'>{header}</List.Header>
-          <List.Description as='a'>{description}</List.Description>
+          <List.Header>{header}</List.Header>
+          <List.Description>{description}</List.Description>
         </List.Content>
       </List.Item>
     ))}
