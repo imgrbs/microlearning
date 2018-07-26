@@ -1,18 +1,22 @@
 import React, { Component, Fragment } from "react"
-import { Container, Grid, Image, Header, Card } from "semantic-ui-react"
+import { Container, Grid, Image, Header, Card, Message } from "semantic-ui-react"
 import firebase from "../../Tools/firebase"
 import { WithUserConsumer } from "../../Context/UserContext"
 
 const Activity = ({ activities }) => (
   <Fragment>
-    {activities.map(({ activityId, header, description }) => (
-      <Card fluid key={activityId}>
-        <Card.Content>
-          <Header>{header}</Header>
-          <p>{description} </p>
-        </Card.Content>
-      </Card>
-    ))}
+    {
+      (activities.length > 0)
+        ? activities.map(({ activityId, header, description }) => (
+          <Card fluid key={activityId}>
+            <Card.Content>
+              <Header>{header}</Header>
+              <p>{description} </p>
+            </Card.Content>
+          </Card>
+        ))
+        : <Message warning>ไม่มีกิจกรรม</Message>
+    }
   </Fragment>
 )
 
