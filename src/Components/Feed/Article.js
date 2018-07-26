@@ -1,7 +1,19 @@
 import React, { Component } from "react"
-import { Header, Container, Image } from "semantic-ui-react"
+import styled from "styled-components"
+import { Header, Container, Image as DefaultImage, Segment as DefaultSegment } from "semantic-ui-react"
 import firebase from "../../Tools/firebase"
 import NotFound from "../PageNotFound"
+
+const Image = styled(DefaultImage)`
+  margin: 2em 0 1em 0 !important;
+`
+
+const Segment = styled(DefaultSegment)`
+  font-size: 1.4em !important;
+  letter-spacing: 0.6px !important;
+  line-height: 1.3em !important;
+  margin: 2em 0 !important;
+`
 
 export default class Article extends Component {
   state = {
@@ -35,9 +47,13 @@ export default class Article extends Component {
     return (
       <Container>
         {isNotFound && <NotFound />}
-        <Header as='h1'>{title}</Header>
-        <Image src={img} />
-        <div>{content}</div>
+        <Image fluid centered src={img} />
+        <Segment>
+          <Header as='h1'>{title}</Header>
+          <p>
+            {content}
+          </p>
+        </Segment>
       </Container>
     )
   }
