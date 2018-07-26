@@ -60,7 +60,7 @@ class Profile extends Component {
                 </Card.Content>
               </Card>
             </Grid.Column>
-            <Grid.Column computer={10} mobile={16} textAlign>
+            <Grid.Column computer={10} mobile={16} >
               <Header>Active Activity</Header>
               <Activity activities={activeActivity} />
               <Header>Completed Activity</Header>

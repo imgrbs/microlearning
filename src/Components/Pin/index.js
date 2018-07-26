@@ -74,7 +74,8 @@ class Pin extends Component {
   }
 
   render () {
-    const classList = Object.values(this.props.user.joinedClass)
+    const classList = this.props.user.joinedClass ? Object.values(this.props.user.joinedClass) : []
+
     return (
       <Container textAlign='center'>
         <Segment style={{ margin: "2em auto", maxWidth: "400px" }} color='yellow'>
