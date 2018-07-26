@@ -76,9 +76,10 @@ export default WithUserConsumer(
         .push()
         .set({
           activityId,
+          ...this.state.activity,
           start: this.state.userActivity.start,
           end: moment().format(),
-          answer: this.state.answer
+          userAnswer: this.state.answer
         })
       await firebase
         .database()
@@ -92,6 +93,7 @@ export default WithUserConsumer(
       try {
         const startTime = moment()
         const userActivity = {
+          ...this.state.activity,
           start: startTime.format(),
           end: startTime.add(moment.duration(this.state.activity.duration)).format()
         }
