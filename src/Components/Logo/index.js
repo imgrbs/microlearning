@@ -10,7 +10,7 @@ const Logo = () => (
 )
 
 const logoStyle = {
-  marginTop: "20px",
+  marginTop: "30px",
   marginBottom: "15px"
 }
 
