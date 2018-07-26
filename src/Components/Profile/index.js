@@ -20,28 +20,7 @@ const Activity = ({ activities }) => (
 )
 
 Activity.defaultProps = {
-  activities: [
-    {
-      header: "Level 1: Beginner",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy"
-    },
-    {
-      header: "Level 1: Beginner",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy"
-    },
-    {
-      header: "Level 1: Beginner",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy"
-    },
-    {
-      header: "Level 1: Beginner",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy"
-    }
-  ]
+  activities: []
 }
 
 class Profile extends Component {
