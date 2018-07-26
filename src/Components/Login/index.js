@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { withRouter } from "react-router"
 import { Button, Form, Container } from "semantic-ui-react"
 import firebase from "../../Tools/firebase"
 import { WithUserConsumer } from "../../Context/UserContext"
@@ -12,7 +13,11 @@ class LoginForm extends Component {
   login = async () => {
     try {
       await firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-      // login success
+      if (this.props.closeModal) {
+        this.props.closeModal()
+      } else {
+        this.props.history.push("/")
+      }
     } catch (e) {
       console.error(e)
       // login fail
@@ -50,4 +55,4 @@ class LoginForm extends Component {
   }
 }
 
-export default WithUserConsumer(LoginForm)
+export default withRouter(WithUserConsumer(LoginForm))

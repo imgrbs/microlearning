@@ -7,7 +7,6 @@ export default class AppProvider extends Component {
   constructor () {
     super()
     firebase.auth().onAuthStateChanged(user => {
-      console.log(user)
       this.setState({
         user: _.pick(user, [
           "displayName",
