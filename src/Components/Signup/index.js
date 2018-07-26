@@ -23,7 +23,17 @@ class SignUpForm extends Component {
       await firebase
         .database()
         .ref("users/" + user.uid)
-        .set({ ..._.omit(this.state, ["password"], photoURL) })
+        .set(
+          _.pick(user, [
+            "displayName",
+            "email",
+            "emailVerified",
+            "photoURL",
+            "isAnonymous",
+            "uid",
+            "providerData"
+          ])
+        )
       if (this.props.closeModal) {
         this.props.closeModal()
       } else {

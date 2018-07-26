@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react"
-import PropTypes from "prop-types"
 import styled from "styled-components"
 import moment from "moment"
 import { Container, Header, Message, Button, TextArea as DefaultTextArea } from "semantic-ui-react"
@@ -30,10 +29,6 @@ const TextArea = styled(DefaultTextArea)`
 
 export default WithUserConsumer(
   class extends Component {
-    static propTypes = {
-      prop: PropTypes
-    }
-
     state = {
       activity: {},
       userActivity: null,
@@ -55,11 +50,8 @@ export default WithUserConsumer(
         .once("value")
       const activity = rawActivity.val() || {}
 
-      const rawUserActivity = await firebase
-        .database()
-        .ref("users/" + this.props.user.uid + "/activeActivity/" + activityId)
-        .once("value")
-      const userActivity = rawUserActivity.val()
+      const activeActivity = this.props.user.activeActivity || {}
+      const userActivity = activeActivity[activityId]
 
       if (userActivity) {
         this.addInterval(userActivity.end)
