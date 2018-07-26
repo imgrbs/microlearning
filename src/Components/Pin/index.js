@@ -101,7 +101,7 @@ class Pin extends Component {
             {classList.length > 0 ? (
               <ClassList classList={classList} />
             ) : (
-              <Message warning>ไม่มีคลาส</Message>
+              <Message warning>No Class.</Message>
             )}
           </div>
         </Segment>
