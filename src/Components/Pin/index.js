@@ -37,22 +37,7 @@ ClassList.propTypes = {
 
 class Pin extends Component {
   state = {
-    pin: "",
-    classList: []
-  }
-
-  constructor (props) {
-    super(props)
-    firebase
-      .database()
-      .ref("users/" + props.user.uid + "/joinedClass")
-      .on("value", data => {
-        const rawClassList = data.val()
-        if (rawClassList) {
-          const classList = Object.values(rawClassList)
-          this.setState({ classList })
-        }
-      })
+    pin: ""
   }
 
   handleInputPinChange = e => {
@@ -69,7 +54,9 @@ class Pin extends Component {
       const joiningClass = foundClass.val()
       if (joiningClass) {
         const joiningClassKey = Object.keys(joiningClass)[0]
-        const alreadyJoined = this.state.classList.find(item => item.classId === joiningClassKey)
+        const alreadyJoined = Object.values(this.props.user.joinedClass).find(
+          item => item.classId === joiningClassKey
+        )
         if (!alreadyJoined) {
           await firebase
             .database()
@@ -87,7 +74,7 @@ class Pin extends Component {
   }
 
   render () {
-    const { classList } = this.state
+    const classList = Object.values(this.props.user.joinedClass)
     return (
       <Container textAlign='center'>
         <Segment style={{ margin: "2em auto", maxWidth: "400px" }} color='yellow'>

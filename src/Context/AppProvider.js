@@ -13,15 +13,7 @@ export default class AppProvider extends Component {
           .ref(`users/${user.uid}`)
           .on("value", data => {
             this.setState({
-              user: _.pick(data.val(), [
-                "displayName",
-                "email",
-                "emailVerified",
-                "photoURL",
-                "isAnonymous",
-                "uid",
-                "providerData"
-              ])
+              user: data.val()
             })
           })
       } else {
