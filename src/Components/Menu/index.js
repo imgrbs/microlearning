@@ -2,6 +2,25 @@ import React, { Component, Fragment } from "react"
 import { Menu } from "semantic-ui-react"
 import { Link } from "react-router-dom"
 import "./menu.css"
+
+const menus = [
+  {
+    name: "Home",
+    to: "/"
+  },
+  {
+    name: "Activity",
+    to: "/activity"
+  },
+  {
+    name: "Classroom",
+    to: "/classroom"
+  },
+  {
+    name: "Profile",
+    to: "/profile"
+  }
+]
 class Menubar extends Component {
   state = {
     activeItem: ""
@@ -14,42 +33,18 @@ class Menubar extends Component {
     return (
       <Fragment>
         <Menu widths='eight' style={menuStyle}>
-          <Menu.Item
-            name='Home'
-            as={Link}
-            to='/'
-            active={activeItem === "Home"}
-            onClick={this.handleItemClick}
-          >
-            Home
-          </Menu.Item>
-          <Menu.Item
-            name='activity'
-            as={Link}
-            to='/activity'
-            active={activeItem === "activity"}
-            onClick={this.handleItemClick}
-          >
-            Activity
-          </Menu.Item>
-          <Menu.Item
-            name='classroom'
-            as={Link}
-            to='/classroom'
-            active={activeItem === "classroom"}
-            onClick={this.handleItemClick}
-          >
-            Classroom
-          </Menu.Item>
-          <Menu.Item
-            name='profile'
-            as={Link}
-            to='/profile'
-            active={activeItem === "profile"}
-            onClick={this.handleItemClick}
-          >
-            Profile
-          </Menu.Item>
+          {menus.map(({ name, to }) => (
+            <Menu.Item
+              key={name}
+              name={name}
+              as={Link}
+              to={to}
+              active={activeItem === { name }}
+              onClick={this.handleItemClick}
+            >
+              {name}
+            </Menu.Item>
+          ))}
         </Menu>
       </Fragment>
     )
