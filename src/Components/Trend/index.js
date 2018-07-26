@@ -52,7 +52,7 @@ class Trend extends Component {
                 <Loader>Loading</Loader>
               </Dimmer>
             ) : (
-              news.map(news => <Feed {...news} />)
+              news.map(news => <Feed key={`${Math.random()}${new Date().toString()}`} {...news} />)
             )}
           </Grid.Column>
         </Grid.Row>
