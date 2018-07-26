@@ -107,11 +107,11 @@ export default WithUserConsumer(
             </Menu.Item>
             {isLogin ? (
               <Menu.Item onClick={this.handleModal}>
-                <div className='signBtn'>Get start</div>
+                <div className='signBtn'>Get Start</div>
               </Menu.Item>
             ) : (
               <Menu.Item onClick={this.signOut}>
-                <div className='signBtn'>{this.props.user.displayName}</div>
+                <div className='signBtn'>{this.props.user.displayName || "Guest"}</div>
               </Menu.Item>
             )}
           </Menu>
