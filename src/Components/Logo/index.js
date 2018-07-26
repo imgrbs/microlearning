@@ -84,16 +84,16 @@ export default WithUserConsumer(
         return (
           <Container>
             <Grid stretched>
-              <Grid.Column computer={13} mobile={8}>
+              <Grid.Column computer={13} tablet={12} mobile={9}>
                 <Image
                   src='https://assets.skooldio.com/logo/skooldio_logo_current.png'
                   size='small'
                 />
               </Grid.Column>
 
-              <Grid.Column computer={3} mobile={8}>
+              <Grid.Column computer={3} tablet={4} mobile={7}>
                 {isLogin ? (
-                  <Button onClick={this.handleModal}>Get start</Button>
+                  <Button onClick={this.handleModal}>Get started</Button>
                 ) : (
                   <Button onClick={this.signOut}>{this.props.user.displayName}</Button>
                 )}{" "}
