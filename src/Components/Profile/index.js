@@ -14,7 +14,7 @@ const Activity = ({ activities }) => (
         </Card>
       ))
     ) : (
-      <Message warning>ไม่มีกิจกรรม</Message>
+      <Message warning>No Activity</Message>
     )}
   </Fragment>
 )
